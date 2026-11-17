@@ -4,6 +4,14 @@ Plataforma web desplegable para **evaluar, retroalimentar y fortalecer competenc
 
 > **Principio de diseño:** no basta con que un LLM asigne una nota. El modelo solo propone niveles con citas, el sistema **verifica** cada cita contra el material, **mide** el código con pruebas y análisis estático en un sandbox, **calcula** la nota en el servidor y el **docente aprueba** antes de publicar.
 
+## Autores
+
+- Daniel Yesid Ramírez Cifuentes
+- Juan Fernando Parra
+- Daniel Giraldo Giraldo
+
+Ingeniería de Sistemas y Telecomunicaciones · Universidad de Manizales · 2026
+
 ## Funcionalidades
 
 - **Portafolio** por cohorte y laboratorio: informe PDF legible, código (ZIP o GitHub con commit fijado) y anexos opcionales.
