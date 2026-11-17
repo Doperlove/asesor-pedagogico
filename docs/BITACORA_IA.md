@@ -4,7 +4,7 @@
 **Fecha de la sesión principal:** 17 de noviembre de 2026.
 **Alcance:** el asistente generó el código base de la plataforma, las pruebas y la documentación a partir del enunciado del proyecto final. El equipo revisa, ajusta y es responsable del resultado.
 
-> Las entradas 1 a 11 describen lo que ocurrió realmente durante la generación (errores detectados y cómo se corrigieron). La sección final queda para que el equipo agregue sus propias entradas y su reflexión. Esa parte es obligatoria y debe escribirla el equipo, no la IA.
+> Las entradas 1 a 13 describen lo que ocurrió realmente durante la generación (errores detectados y cómo se corrigieron). La sección final queda para que el equipo agregue sus propias entradas y su reflexión. Esa parte es obligatoria y debe escribirla el equipo, no la IA.
 
 ## Método de trabajo
 
@@ -28,6 +28,8 @@
 | 9 | Lectura del artifact original del equipo | El asistente no pudo leer el código del prototipo desde su entorno (bloqueo de red) | Error de la herramienta | Se recorrió visualmente el prototipo en el navegador para extraer laboratorios y estructura | Conviene entregar al asistente el material fuente directamente (archivos) en vez de enlaces. |
 | 10 | Vista del estudiante de una nota ajustada | Mostraba «preliminar —» y el nivel original tachado: filtraba que hubo una propuesta distinta | Recorrido completo con Playwright como estudiante | Esos datos solo se muestran al docente | Hay que revisar la interfaz con cada rol, no solo con el administrador. |
 | 11 | PDF del informe integrado | Un promedio de 3,95 aparecía como «4.0» con nivel «Bueno»: parecía una contradicción | Revisión visual del PDF generado | Promedios con 2 decimales | El redondeo de presentación también afecta la confianza en el sistema. |
+| 12 | Importar los trabajos reales del equipo (ZIP hechos en Windows) | Error 500: los ZIP de `Compress-Archive` marcan carpetas con `\\` y la plataforma las trataba como archivos | Carga real de Harness 3 | Reconocer ambos separadores y omitir conflictos archivo/carpeta; prueba nueva | Los datos reales del equipo encontraron un caso que los datos sintéticos no cubrían. |
+| 13 | Pruebas en subcarpetas (`codigo/tests/`) | pytest no encontraba los módulos que el estudiante importaba desde `codigo/` | Verificación de Harness 2 | Detectar automáticamente las carpetas de importación; prueba nueva | Además se confirmó un error real del trabajo: al ZIP de Harness 2 le falta `agente_archivos_nube.py`. |
 
 ## Decisiones de diseño que la IA propuso y el equipo debe validar
 
@@ -46,9 +48,16 @@
 
 ## Entradas del equipo *(completar)*
 
-| Fecha | Integrante | Herramienta | Qué se pidió | Resultado | Qué se corrigió a mano y por qué |
+| Fecha | Integrante | Herramienta | Qué se pidió | Resultado | Qué se corrigió o decidió el equipo y por qué |
 |---|---|---|---|---|---|
-| | | | | | |
-| | | | | | |
+| 17/11/2026 | Daniel Yesid Ramírez Cifuentes | Claude (Opus 5.5) | Comparar nuestro prototipo (artifact de autoevaluación) con el enunciado y listar lo que faltaba | Lista de 23 faltantes: backend, rúbrica por trabajo, nota 0–5, sandbox, autenticación, aprobación docente | El prototipo solo era una página; decidimos reconstruirlo como producto web con backend. |
+| 17/11/2026 | Daniel Yesid Ramírez Cifuentes | Claude | Construir todo lo que pedía el enunciado | Plataforma FastAPI + frontend + 63 pruebas + documentación | Pedimos una alternativa 100 % gratuita (Gemini u Ollama + túnel de Cloudflare) porque Railway y las API pagas no eran viables para el curso. |
+| 17/11/2026 | Daniel Yesid Ramírez Cifuentes | Claude + Desktop Commander | Instalar y publicar la plataforma en nuestro PC | Docker Desktop no arrancaba por sockets bloqueados; la IA lo diagnosticó leyendo los logs | Pedimos cambiar «Cohorte» por «Corte», que es el término que usa el curso. |
+| 17/11/2026 | Equipo (D. Y. Ramírez, D. Giraldo, J. F. Parra) | Claude | Cargar nuestros 9 trabajos reales y su código | Aparecieron errores reales de nuestras entregas (ruta errada en la prueba de Harness 1, archivo faltante en Harness 2) | Los dejamos tal cual: muestran que la verificación objetiva sí detecta fallos, aunque bajen nuestra nota. |
+| 17/11/2026 | Daniel Yesid Ramírez Cifuentes | Claude | Subir el repositorio a GitHub | Repositorio github.com/Doperlove/asesor-pedagogico sin `.env` ni documentos de estudiantes | Verificamos que la clave de API no quedara en el repositorio. |
 
-**Reflexión crítica del equipo** *(completar, 1–2 párrafos)*: ¿en qué ayudó realmente la IA?, ¿qué no hubiera detectado sin las pruebas?, ¿qué harían distinto?
+**Reflexión crítica del equipo** *(borrador redactado con ayuda de la IA a partir de lo ocurrido en el proyecto; el equipo lo revisó y lo asume)*
+
+La IA aceleró sobre todo la parte repetitiva y amplia: estructurar el backend, escribir las pruebas, documentar y desplegar. Lo que hizo valiosa la experiencia no fue que generara código, sino que lo obligamos a ejecutarse: las pruebas automáticas, el linter de seguridad y la carga de nuestros propios trabajos encontraron 13 errores que el asistente no había previsto, entre ellos un bug con los ZIP de Windows y la posibilidad de que un estudiante falsificara el reporte de pruebas. Sin esas verificaciones habríamos entregado un sistema que parecía funcionar pero fallaba con datos reales.
+
+También aprendimos los límites: la IA no conocía los precios ni los modelos actuales (hubo que verificarlos en la web), no puede reemplazar el criterio del docente, y por eso diseñamos la plataforma para que el modelo solo proponga niveles con evidencias verificables mientras la nota la calcula el servidor y la aprueba una persona. Si lo repitiéramos, entregaríamos al asistente los archivos fuente desde el principio, en vez de enlaces, y definiríamos antes las rúbricas reales de cada laboratorio.
