@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asesor Pedagógico Inteligente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230f766e'/><path d='M9 21l4-10 3 7 2-4 5 7' stroke='white' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+</head>
+<body>
+  <header class="topbar" id="topbar" hidden>
+    <a class="brand" href="#/">
+      <span class="logo" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M9 21l4-10 3 7 2-4 5 7"/></svg></span>
+      <span><strong>Asesor Pedagógico</strong><small>Inteligencia Artificial · U. de Manizales</small></span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menú">☰</button>
+    <nav id="nav"></nav>
+    <div class="user" id="userBox"></div>
+  </header>
+  <main id="app" class="container" aria-live="polite"></main>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

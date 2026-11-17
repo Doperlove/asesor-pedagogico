@@ -1,0 +1,40 @@
+# Despliegue en servidor propio (VPS o máquina en Proxmox) con aislamiento completo por Docker.
+#   docker build -t asesor-sandbox:latest ./sandbox
+#   docker compose up -d
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: asesor
+      POSTGRES_USER: asesor
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cambie-esta-clave}
+    volumes: [pgdata:/var/lib/postgresql/data]
+    restart: unless-stopped
+
+  app:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://asesor:${POSTGRES_PASSWORD:-cambie-esta-clave}@db:5432/asesor
+      SANDBOX_MODE: docker
+      STORAGE_DIR: /app/data/storage
+    # Necesario solo para SANDBOX_MODE=docker. Ver riesgos en docs/MANUAL_TECNICO.md
+    user: root
+    volumes:
+      - storage:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp:/tmp
+    ports: ["8000:8000"]
+    depends_on: [db]
+    restart: unless-stopped
+
+  # Opcional: modelo local
+  ollama:
+    image: ollama/ollama:latest
+    volumes: [ollama:/root/.ollama]
+    profiles: ["local-llm"]
+
+volumes:
+  pgdata:
+  storage:
+  ollama:

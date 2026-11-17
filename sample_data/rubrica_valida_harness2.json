@@ -1,0 +1,201 @@
+{
+  "nombre": "Rúbrica Harness 2",
+  "descripcion": "Evalúa el laboratorio de harness: agente con LLM en la nube.",
+  "competencias": [
+    {
+      "id": "RA2",
+      "nombre": "Diseñar interacciones verificables",
+      "descripcion": "Diseña prompts, esquemas y validaciones que hacen verificable la salida de un modelo."
+    },
+    {
+      "id": "RA3",
+      "nombre": "Integrar IA en el ciclo del software",
+      "descripcion": "Incorpora modelos y asistentes de IA en el desarrollo, las pruebas y el despliegue."
+    },
+    {
+      "id": "RA4",
+      "nombre": "Construir con una fábrica aumentada",
+      "descripcion": "Construye productos con agentes, herramientas y supervisión humana."
+    }
+  ],
+  "criterios": [
+    {
+      "id": "CR1",
+      "competencia_id": "RA4",
+      "nombre": "Diseño del agente y del harness",
+      "descripcion": "Arquitectura del agente: bucle de control, herramientas, memoria y supervisión humana.",
+      "peso": 25,
+      "fuente": "llm",
+      "niveles": [
+        {
+          "id": "N1",
+          "nombre": "Insuficiente",
+          "puntaje": 1.5,
+          "descriptor": "No describe la arquitectura del agente ni sus herramientas."
+        },
+        {
+          "id": "N2",
+          "nombre": "Básico",
+          "puntaje": 3.0,
+          "descriptor": "Describe el agente de forma general sin explicar el bucle de control ni las herramientas."
+        },
+        {
+          "id": "N3",
+          "nombre": "Competente",
+          "puntaje": 4.0,
+          "descriptor": "Explica el bucle de control, las herramientas y cómo se valida cada paso."
+        },
+        {
+          "id": "N4",
+          "nombre": "Destacado",
+          "puntaje": 5.0,
+          "descriptor": "Justifica el diseño del agente, el bucle de control, las herramientas y la supervisión humana con evidencias y alternativas."
+        }
+      ]
+    },
+    {
+      "id": "CR2",
+      "competencia_id": "RA2",
+      "nombre": "Verificación de salidas del modelo",
+      "descripcion": "Uso de esquemas, validaciones y comparación esperado vs obtenido.",
+      "peso": 20,
+      "fuente": "llm",
+      "niveles": [
+        {
+          "id": "N1",
+          "nombre": "Insuficiente",
+          "puntaje": 1.5,
+          "descriptor": "No verifica las salidas del modelo."
+        },
+        {
+          "id": "N2",
+          "nombre": "Básico",
+          "puntaje": 3.0,
+          "descriptor": "Verifica manualmente algunos casos sin criterio explícito."
+        },
+        {
+          "id": "N3",
+          "nombre": "Competente",
+          "puntaje": 4.0,
+          "descriptor": "Valida las salidas con esquema o reglas y compara esperado contra obtenido."
+        },
+        {
+          "id": "N4",
+          "nombre": "Destacado",
+          "puntaje": 5.0,
+          "descriptor": "Valida con esquema, reglas e integridad (hash) y documenta casos de fallo y su manejo."
+        }
+      ]
+    },
+    {
+      "id": "CR3",
+      "competencia_id": "RA3",
+      "nombre": "Documentación técnica y reflexión",
+      "descripcion": "Informe claro con resultados, limitaciones y uso responsable de IA.",
+      "peso": 20,
+      "fuente": "llm",
+      "niveles": [
+        {
+          "id": "N1",
+          "nombre": "Insuficiente",
+          "puntaje": 1.5,
+          "descriptor": "Informe incompleto o sin resultados."
+        },
+        {
+          "id": "N2",
+          "nombre": "Básico",
+          "puntaje": 3.0,
+          "descriptor": "Informe con resultados pero sin análisis ni limitaciones."
+        },
+        {
+          "id": "N3",
+          "nombre": "Competente",
+          "puntaje": 4.0,
+          "descriptor": "Informe claro con resultados, análisis y limitaciones."
+        },
+        {
+          "id": "N4",
+          "nombre": "Destacado",
+          "puntaje": 5.0,
+          "descriptor": "Informe claro con resultados, análisis crítico, limitaciones, costos y uso responsable de la IA."
+        }
+      ]
+    },
+    {
+      "id": "CR4",
+      "competencia_id": "RA3",
+      "nombre": "Pruebas unitarias del código",
+      "descripcion": "Medición automática: porcentaje de pruebas aprobadas en el sandbox.",
+      "peso": 20,
+      "fuente": "pruebas",
+      "niveles": [
+        {
+          "id": "N1",
+          "nombre": "Insuficiente",
+          "puntaje": 1.5,
+          "descriptor": "Menos del 50 % de las pruebas pasan o no hay pruebas.",
+          "umbral_min": 0
+        },
+        {
+          "id": "N2",
+          "nombre": "Básico",
+          "puntaje": 3.0,
+          "descriptor": "Entre 50 % y 79 % de las pruebas pasan.",
+          "umbral_min": 50
+        },
+        {
+          "id": "N3",
+          "nombre": "Competente",
+          "puntaje": 4.0,
+          "descriptor": "Entre 80 % y 99 % de las pruebas pasan.",
+          "umbral_min": 80
+        },
+        {
+          "id": "N4",
+          "nombre": "Destacado",
+          "puntaje": 5.0,
+          "descriptor": "El 100 % de las pruebas pasan.",
+          "umbral_min": 100
+        }
+      ]
+    },
+    {
+      "id": "CR5",
+      "competencia_id": "RA3",
+      "nombre": "Calidad estática del código",
+      "descripcion": "Medición automática con ruff: densidad de hallazgos de estilo, errores y seguridad.",
+      "peso": 15,
+      "fuente": "analisis_estatico",
+      "niveles": [
+        {
+          "id": "N1",
+          "nombre": "Insuficiente",
+          "puntaje": 1.5,
+          "descriptor": "Índice de calidad menor a 60: muchos errores o problemas de seguridad.",
+          "umbral_min": 0
+        },
+        {
+          "id": "N2",
+          "nombre": "Básico",
+          "puntaje": 3.0,
+          "descriptor": "Índice entre 60 y 79: hallazgos frecuentes.",
+          "umbral_min": 60
+        },
+        {
+          "id": "N3",
+          "nombre": "Competente",
+          "puntaje": 4.0,
+          "descriptor": "Índice entre 80 y 89: pocos hallazgos menores.",
+          "umbral_min": 80
+        },
+        {
+          "id": "N4",
+          "nombre": "Destacado",
+          "puntaje": 5.0,
+          "descriptor": "Índice de 90 o más: código limpio.",
+          "umbral_min": 90
+        }
+      ]
+    }
+  ]
+}

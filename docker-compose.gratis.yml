@@ -1,0 +1,34 @@
+# Despliegue 100 % GRATIS en su propio PC (Windows con Docker Desktop, Linux o Mac).
+#
+#   1. Copie .env.example a .env y ponga SECRET_KEY, DEMO_PASSWORD y (si usa Gemini) GEMINI_API_KEY.
+#   2. docker compose -f docker-compose.gratis.yml up -d --build
+#   3. docker compose -f docker-compose.gratis.yml logs tunel   → busque la URL https://....trycloudflare.com
+#
+# Esa URL pública con HTTPS funciona mientras el PC esté encendido. No requiere cuenta ni tarjeta.
+services:
+  app:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: sqlite:////app/data/asesor.db
+      STORAGE_DIR: /app/data/storage
+      COOKIE_SECURE: "true"
+      # Ollama instalado directamente en el PC (fuera de Docker):
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - datos:/app/data
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  # Túnel gratuito de Cloudflare: publica la app en una URL https://xxxx.trycloudflare.com
+  tunel:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate --url http://app:8000
+    depends_on: [app]
+    restart: unless-stopped
+
+volumes:
+  datos:

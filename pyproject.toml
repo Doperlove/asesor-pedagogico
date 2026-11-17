@@ -1,0 +1,21 @@
+[project]
+name = "asesor-pedagogico"
+version = "1.0.0"
+description = "Plataforma web para evaluar, retroalimentar y fortalecer competencias en IA"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 150
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "I", "S"]
+# B008: patrón estándar de FastAPI (Depends en argumentos). S101: assert en pruebas.
+ignore = ["B008", "S101", "E501", "S603", "S607"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
